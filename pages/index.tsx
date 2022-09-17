@@ -215,7 +215,7 @@ const Home: NextPage = () => {
       >
         Solana Relayer allows you to onboard more users to your dapp by paying
         gas on their behalf.
-        <br /> Most users don't like the idea of paying gas fees, you can
+        <br /> Most users don&apos;t like the idea of paying gas fees, you can
         forward that fee to yourself and still allow your users to use your
         dapp.
       </Text>
