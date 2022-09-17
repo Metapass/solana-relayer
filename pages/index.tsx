@@ -74,7 +74,9 @@ const Home: NextPage = () => {
     // const tx = await
 
     if (wallet.signTransaction) {
-      const { data: txnData } = await axios.post("/api/hello");
+      const { data: txnData } = await axios.post("/api/tx", {
+        address: wallet.publicKey.toString(),
+      });
       const { signatures } = txnData.message;
       console.log(txnData, "signatures");
       const tx = Transaction.populate(
@@ -86,21 +88,25 @@ const Home: NextPage = () => {
           signature: s.signature ? base58.encode(s.signature) : null,
         };
       });
-      console.log(sigs, "sigs");
+      console.log(sigs, "sigs", signatures);
       signatures.map((s: { key: string; signature: string }) => {
         console.log(s, "s");
-        tx.addSignature(
-          new PublicKey(s.key),
-          Buffer.from(base58.decode(s.signature))
-        );
+        s.signature &&
+          tx.addSignature(
+            new PublicKey(s.key),
+            Buffer.from(base58.decode(s.signature))
+          );
       });
 
       const txn = await wallet.signTransaction(tx);
-      const txid = await connection.sendRawTransaction(txn.serialize(), {
-        preflightCommitment: "recent",
-      });
-
-      console.log(txid, "txn");
+      try {
+        const txid = await connection.sendRawTransaction(txn.serialize(), {
+          preflightCommitment: "recent",
+        });
+        console.log(`https://explorer.solana.com/tx/${txid}`);
+      } catch (error) {
+        console.log(error, "error");
+      }
     }
   };
   return (
