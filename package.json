@@ -9,11 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@solana/spl-token": "^0.3.5",
+    "@solana/wallet-adapter-react": "^0.15.19",
+    "@solana/wallet-adapter-react-ui": "^0.9.17",
+    "@solana/wallet-adapter-wallets": "^0.18.10",
     "@solana/web3.js": "^1.62.0",
+    "axios": "^0.27.2",
     "bs58": "^5.0.0",
     "next": "12.3.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
