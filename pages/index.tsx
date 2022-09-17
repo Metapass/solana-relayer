@@ -72,9 +72,9 @@ const Home: NextPage = () => {
             );
         });
 
-        const txn = await wallet.signTransaction(tx);
+        // const txn = await wallet.signTransaction(tx);
         try {
-          const txid = await connection.sendRawTransaction(txn.serialize(), {
+          const txid = await connection.sendRawTransaction(tx.serialize(), {
             preflightCommitment: "recent",
           });
           console.log(`https://explorer.solana.com/tx/${txid}`);
