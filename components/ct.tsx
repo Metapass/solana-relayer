@@ -44,7 +44,7 @@ export const ConnectWallet = ({
     if (publicKey) {
       console.log(`User Public Key: ${publicKey}`, domain);
       //   console.log(`User Balance: ${balance}`);
-      if (!noToast) toast.success("Connected to Solana wallet");
+      if (!noToast) toast.success("Connected to Solana wallet", { id: "conn" });
       //   if (redirectToWelcome) router.push(`/welcome/${publicKey}`);
 
       if (setAddress) setAddress(publicKey.toString());
@@ -65,9 +65,15 @@ export const ConnectWallet = ({
     }
   }, [SolanaWallet, visible, publicKey, redirectToWelcome, clicked, fire]);
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     setClicked(true);
-    if (SolanaWallet) return;
+    if (SolanaWallet) {
+      toast.loading("disconnecting...", { id: "dis" });
+      await SolanaWallet.adapter.disconnect();
+      setAddress("");
+      toast.success("disconnected", { id: "dis" });
+      return;
+    }
     console.log("Solana Wallet retrieved", SolanaWallet, domain);
     setVisible(true);
   };

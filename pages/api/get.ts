@@ -8,9 +8,10 @@ export default async function getNonceAccount(
   res: NextApiResponse<any>
 ) {
   try {
-    const a = "FtJu4Qdat9HEa4DfFqgQGukgRgLhJMjmytDhJCCn2S65";
+    const { address } = req.body;
+
     const con = new Connection(process.env.ALCHEMY!, { commitment: "recent" });
-    const data = await con.getAccountInfo(new PublicKey(a), {
+    const data = await con.getAccountInfo(new PublicKey(address), {
       commitment: "recent",
     });
     const nonce = NonceAccount.fromAccountData(data!.data);
