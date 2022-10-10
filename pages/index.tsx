@@ -77,8 +77,10 @@ const Home: NextPage = () => {
           const txid = await connection.sendRawTransaction(tx.serialize(), {
             preflightCommitment: "recent",
           });
-          console.log(`https://explorer.solana.com/tx/${txid}`);
-          setExplorerLink(`https://explorer.solana.com/tx/${txid}`);
+          console.log(`https://explorer.solana.com/tx/${txid}?cluster=devnet`);
+          setExplorerLink(
+            `https://explorer.solana.com/tx/${txid}?cluster=devnet`
+          );
           toast.success(`Success!`, {
             id: "done",
           });
